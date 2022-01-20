@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.StudentAchievements"
+    android:padding="30dp">
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose the departments"
+        android:id="@+id/chooseDepartmentsTextView"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/departmentsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chooseDepartmentsTextView"
+        android:layout_marginTop="10dp"
+        android:background="@android:drawable/editbox_background"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:drawablePadding="16dp"
+        android:hint="Select the departments"
+        android:padding="12dp" />
+
+    <TextView
+        android:id="@+id/chooseBatchesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/departmentsTextView"
+        android:layout_marginTop="30dp"
+        android:text="Choose the batches"
+        android:textSize="25sp"
+        android:textStyle="italic" />
+    
+    <TextView
+        android:id="@+id/batchesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:drawablePadding="16dp"
+        android:hint="Select the batches"
+        android:padding="12dp"
+        android:layout_below="@id/chooseBatchesTextView"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From Academic Year"
+        android:id="@+id/fromAcademicYearTextView"
+        android:textSize="25sp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/batchesTextView"
+        android:textStyle="italic"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/fromAcademicYearTextView"
+        android:minWidth="150dp"
+        android:id="@+id/fromAcademicYearCardView">
+
+        <Spinner
+            android:id="@+id/fromAcademicYearSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/spinner_bg"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To Academic Year"
+        android:id="@+id/toAcademicYearTextView"
+        android:textSize="25sp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/fromAcademicYearCardView"
+        android:textStyle="italic"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/toAcademicYearTextView"
+        android:minWidth="150dp"
+        android:id="@+id/toAcademicYearCardView">
+
+        <Spinner
+            android:id="@+id/toAcademicYearSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/spinner_bg"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/viewStudentAchievementsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toAcademicYearCardView"
+        android:layout_marginTop="40dp"
+        android:text="View Achievements" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:drawableLeft="@drawable/ic_baseline_add_24"
+        android:text="Add Batch"
+        android:textAllCaps="false"
+        android:id="@+id/createBatchBtn"/>
+
+
+</RelativeLayout>

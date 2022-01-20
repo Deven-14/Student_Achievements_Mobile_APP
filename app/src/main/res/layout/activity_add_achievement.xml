@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Student.AddAchievement"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="20dp"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter the following details"
+            android:textSize="25sp"
+            android:textStyle="bold|italic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select the Year of Achievement"
+            android:textSize="20sp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="left"
+            android:textStyle="italic"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="10dp">
+
+            <Spinner
+                android:id="@+id/yearOfAchievement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:background="@drawable/spinner_bg" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select the Event Type"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="left"
+            android:textStyle="italic"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="10dp">
+
+            <Spinner
+                android:id="@+id/nameOfEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:background="@drawable/spinner_bg" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter the Name, details/location of the Event"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="left"
+            android:textStyle="italic"/>
+
+        <EditText
+            android:id="@+id/detailsOfEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Enter details of the Event"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select the Level of the Event"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="left"
+            android:textStyle="italic"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="10dp">
+
+            <Spinner
+                android:id="@+id/level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:background="@drawable/spinner_bg" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Did you win any award in this Event?"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="left"
+            android:textStyle="italic"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/awardRg"
+            android:orientation="horizontal"
+            android:layout_gravity="left">
+
+            <RadioButton
+                android:id="@+id/yesRb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                android:layout_marginRight="5dp"/>
+
+            <RadioButton
+                android:id="@+id/noRb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No" />
+
+        </RadioGroup>
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Add Certificate: *optional pdf less than 5 MB*"-->
+<!--            android:textSize="18sp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_gravity="left"-->
+<!--            android:textStyle="italic"/>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_gravity="left">-->
+
+<!--            <Button-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Choose File"-->
+<!--                android:id="@+id/certificate"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:backgroundTint="@color/royal_blue"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="No file chosen"-->
+<!--                android:textSize="20sp"-->
+<!--                android:layout_gravity="center_vertical"/>-->
+
+<!--        </LinearLayout>-->
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="submit"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:id="@+id/submitBtn"
+            android:backgroundTint="@color/royal_blue"/>
+
+    </LinearLayout>
+
+
+</ScrollView>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">StudentAchievements</string>
+    <string name="app_display_name">Student\nAchievements\nBMSCE</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="bmsce_logo">BMSCE Logo</string>
+    <string name="pdf_button_text">Certificate PDF link</string>
+
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+</resources>
