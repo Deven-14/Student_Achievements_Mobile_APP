@@ -51,25 +51,25 @@ public class AchievementsRecViewAdapter extends RecyclerView.Adapter<Achievement
         holder.certificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(certificate_link.compareTo("None") == 0) {
-//                    Toast.makeText(context, "No Certificate Available", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Uri uri = Uri.parse(certificate_link);
-//                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//                    context.startActivity(intent);
-//                }
-                PopupMenu popup = new PopupMenu(context, holder.certificate);
-                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(context,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                        //Your Code to download the google sheet
-                        return true;
-                    }
-                });
-
-                popup.show();
+                if(certificate_link.compareTo("None") == 0) {
+                    Toast.makeText(context, "No Certificate Available", Toast.LENGTH_SHORT).show();
+                } else {
+                    Uri uri = Uri.parse(certificate_link);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    context.startActivity(intent);
+                }
+//                PopupMenu popup = new PopupMenu(context, holder.certificate);
+//                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+//
+//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        Toast.makeText(context,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//                        //Your Code to download the google sheet
+//                        return true;
+//                    }
+//                });
+//
+//                popup.show();
             }
         });
         int randIndex = rand.nextInt(event_colors.length);

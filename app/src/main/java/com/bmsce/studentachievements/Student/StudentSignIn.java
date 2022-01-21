@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bmsce.studentachievements.MainActivity;
 import com.bmsce.studentachievements.R;
+import com.bmsce.studentachievements.SharedPreferences.SharedPreferenceManager;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -44,8 +45,9 @@ public class StudentSignIn extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.arsenic)));
+        getSupportActionBar().setTitle("Student SignIn");
         setContentView(R.layout.activity_student_sign_in);
-//        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.royal_blue)));
 
         account = getIntent().getParcelableExtra("gAccount");
         image = findViewById(R.id.image);
@@ -55,13 +57,9 @@ public class StudentSignIn extends AppCompatActivity implements View.OnClickList
         studentSignInBtn = findViewById(R.id.student_sign_in_btn);
         newAccountBtn = findViewById(R.id.new_account_btn);
 
-        try{
-            Toast.makeText(this, account.getPhotoUrl().toString(), Toast.LENGTH_SHORT).show();
-        } catch(NullPointerException e) {
-            Toast.makeText(this, "no photo url" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        if(account.getPhotoUrl() != null) {
+            Glide.with(this).load(account.getPhotoUrl()).into(image);
         }
-
-        Glide.with(this).load(account.getPhotoUrl()).into(image);
         name.setText(account.getDisplayName());
         email.setText(account.getEmail());
 
@@ -129,6 +127,12 @@ public class StudentSignIn extends AppCompatActivity implements View.OnClickList
             try {
                 Student.addDataToPreferences(getApplicationContext(), account, response.getJSONObject("userData"));
                 Intent intent = new Intent(StudentSignIn.this, ViewAchievements.class);
+                intent.setFlags(
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        | Intent.FLAG_ACTIVITY_NEW_TASK
+                );
+                SharedPreferenceManager.writeIsSignedInTrue(getApplicationContext());
                 startActivity(intent);
             } catch (GeneralSecurityException | IOException | JSONException e) {
                 e.printStackTrace();

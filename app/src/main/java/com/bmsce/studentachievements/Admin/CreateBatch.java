@@ -1,5 +1,6 @@
 package com.bmsce.studentachievements.Admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -9,12 +10,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bmsce.studentachievements.MainActivity;
 import com.bmsce.studentachievements.R;
+import com.bmsce.studentachievements.SharedPreferences.SharedPreferenceManager;
 import com.bmsce.studentachievements.Student.AddAchievement;
+import com.bmsce.studentachievements.Token.AccessToken;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,28 +36,29 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class CreateBatch extends AppCompatActivity implements View.OnClickListener{
 
     private ListView batchesListView;
     private Spinner batchesSpinner;
     private Button createBatchBtn;
-
-    private final static String TAG = "CreateBatch";
-    private final static String url = "https://trial-sabmsce.herokuapp.com/api/student/createBatch";
+    private final static String TAG = CreateBatch.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.arsenic)));
+        getSupportActionBar().setTitle("Create Batch");
         setContentView(R.layout.activity_create_batch);
-
-//        String[] batches = getIntent().getStringArrayExtra("batches");
 
         batchesListView = findViewById(R.id.batchesListView);
         batchesSpinner = findViewById(R.id.batchesSpinner);
@@ -58,6 +67,34 @@ public class CreateBatch extends AppCompatActivity implements View.OnClickListen
         createBatchBtn.setOnClickListener(this);
 
         displayBatches();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.sign_out_action_bar_btn) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.setFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            | Intent.FLAG_ACTIVITY_NEW_TASK
+            );
+            try {
+                SharedPreferenceManager.writeIsSignedInFalse(getApplicationContext());
+            } catch (GeneralSecurityException | IOException e) {
+                e.printStackTrace();
+            }
+            startActivity(intent);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     private String[] getCreatableBatches(String[] batches) {
@@ -76,12 +113,10 @@ public class CreateBatch extends AppCompatActivity implements View.OnClickListen
 
     private void displayBatches() {
 
-        String[] batches = {
-                "batch-2018-2022",
-                "batch-2019-2023",
-                "batch-2020-2024"
-        };
-//        SharedPref.getBatches();
+        Set<String> batchesSet = SharedPreferenceManager.read("batches", new HashSet<String>());
+        String[] batches = new String[batchesSet.size()];
+        batchesSet.toArray(batches);
+        Arrays.sort(batches);
 
         ArrayAdapter<String> batchesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, batches);
         batchesListView.setAdapter(batchesAdapter);
@@ -119,25 +154,15 @@ public class CreateBatch extends AppCompatActivity implements View.OnClickListen
     }
 
     private boolean isAllDataEntered(String token) {
-        try {
-            if (batchesSpinner.getSelectedItem().toString().compareTo("") == 0 || token.compareTo("") == 0) {
-                return false;
-            }
-        } catch(NullPointerException exp) {
-            return false;
-        }
-        return true;
-    }
-
-    private String getToken() {
-        return "";
+        return batchesSpinner.getSelectedItem().toString().compareTo("") != 0
+                && token.compareTo(SharedPreferenceManager.DEFAULT_VALUE) != 0;
     }
 
     private void createBatch() {
-        String token = getToken();
+        String token = AccessToken.getAccessToken(getApplicationContext());
         if(isAllDataEntered(token)) {
 
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, getBody(), onSuccess, onFailure) {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Admin.getCreateBatchUri(), getBody(), onSuccess, onFailure) {
                 @Override
                 public Map<String, String> getHeaders() {
                     HashMap<String, String> headers = new HashMap<String, String>();

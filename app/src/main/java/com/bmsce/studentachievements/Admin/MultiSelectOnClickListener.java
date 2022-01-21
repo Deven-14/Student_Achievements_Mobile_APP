@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 
 public class MultiSelectOnClickListener implements View.OnClickListener{
@@ -32,7 +34,7 @@ public class MultiSelectOnClickListener implements View.OnClickListener{
         builder.setTitle(title);
         builder.setCancelable(false);
 
-        builder.setMultiChoiceItems(items, selectedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(this.items, selectedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                 if (b) {

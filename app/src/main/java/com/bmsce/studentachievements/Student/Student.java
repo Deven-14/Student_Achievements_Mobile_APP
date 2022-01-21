@@ -20,12 +20,13 @@ public class Student {
         SharedPreferenceManager.write("name", account.getDisplayName());
         SharedPreferenceManager.write("email", account.getEmail());
         SharedPreferenceManager.write("usn", data.getString("usn"));
+        SharedPreferenceManager.write("presentYear", String.valueOf(data.getInt("presentYear")));
         SharedPreferenceManager.write("token", data.getString("token"));
         SharedPreferenceManager.write("refreshToken", data.getString("refreshToken"));
-        Log.i("In Student", "Saved data successfully");
+        Log.i("Student", "Saved data successfully");
     }
 
-    public static String getRefreshTokenUrl() {
+    public static String getRefreshTokenUri() {
         return "https://trial-sabmsce.herokuapp.com/api/auth/Student/refreshToken";
     }
 
@@ -45,13 +46,12 @@ public class Student {
         return "https://trial-sabmsce.herokuapp.com/api/student/addAchievement";
     }
 
-    public static HashMap<String, String> getRefreshTokenDetails() {
-        String error = "error";
+    public static HashMap<String, String> getRefreshTokenDetails(Context context) throws GeneralSecurityException, IOException {
+        SharedPreferenceManager.init(context);
         HashMap<String, String> map = new HashMap<>();
-        map.put("refreshToken", "");
-        map.put("email", "devenparamaj.is19@bmsce.ac.in");
-        map.put("usn", "1BM19IS048");
-        map.put("error", error);
+        map.put("email", SharedPreferenceManager.read("email", SharedPreferenceManager.DEFAULT_VALUE));
+        map.put("usn", SharedPreferenceManager.read("usn", SharedPreferenceManager.DEFAULT_VALUE));
+        map.put("refreshToken", SharedPreferenceManager.read("refreshToken", SharedPreferenceManager.DEFAULT_VALUE));
         return map;
     }
 

@@ -4,12 +4,12 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,14 +21,15 @@ import com.bmsce.studentachievements.Achievement.AchievementsRecViewAdapter;
 import com.bmsce.studentachievements.MainActivity;
 import com.bmsce.studentachievements.R;
 import com.bmsce.studentachievements.SharedPreferences.SharedPreferenceManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.Task;
+import com.bmsce.studentachievements.Token.AccessToken;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -71,6 +72,8 @@ public class ViewAchievements extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.arsenic)));
+        getSupportActionBar().setTitle("Achievements");
         setContentView(R.layout.activity_view_achievements);
 
         achievementsRecView = findViewById(R.id.achievementsRecView);
@@ -79,6 +82,41 @@ public class ViewAchievements extends AppCompatActivity implements View.OnClickL
         addAchievementBtn.setOnClickListener(this);
 
         getAchievements();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        finish();
+//        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.sign_out_action_bar_btn) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.setFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    | Intent.FLAG_ACTIVITY_NEW_TASK
+            );
+            try {
+                SharedPreferenceManager.writeIsSignedInFalse(getApplicationContext());
+            } catch (GeneralSecurityException | IOException e) {
+                e.printStackTrace();
+            }
+            startActivity(intent);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -91,22 +129,12 @@ public class ViewAchievements extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private String getToken() {
-        try {
-            SharedPreferenceManager.init(getApplicationContext());
-        } catch (GeneralSecurityException | IOException e) {
-            e.printStackTrace();
-            return SharedPreferenceManager.defaultValue;
-        }
-        return SharedPreferenceManager.read("token", SharedPreferenceManager.defaultValue);
-    }
-
     private boolean isTokenPresent(String token) {
-        return token.compareTo(SharedPreferenceManager.defaultValue) != 0;
+        return token.compareTo(SharedPreferenceManager.DEFAULT_VALUE) != 0;
     }
 
     private void getAchievements() {
-        String token = getToken();
+        String token = AccessToken.getAccessToken(getApplicationContext());
         if(isTokenPresent(token)) {
 
             //request should only be written here, coz we are calling getBody() when we are creating the request object...

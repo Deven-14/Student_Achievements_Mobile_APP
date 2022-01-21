@@ -16,6 +16,10 @@
     <color name="red_orange">#ff4d6d</color>
     <color name="gray">#808080</color>
     <color name="blue_gray">#4169e1</color>
+    <color name="arsenic">#424242</color>
+    <color name="off_white">#eceff4</color>
+    <color name="submit_green">#06d6a0</color>
+    <color name="pastel_red">#ef798a</color>
 
     <array name="event_colors">
         <item>@color/royal_blue</item>
@@ -27,5 +31,17 @@
         <item>@color/sky_blue</item>
         <item>@color/sea_green</item>
     </array>
+
+<!--    <array name="event_colors">-->
+<!--        <item>#FFADAD</item>-->
+<!--        <item>#FFD6A5</item>-->
+<!--        <item>#FDFFB6</item>-->
+<!--        <item>#CAFFBF</item>-->
+<!--        <item>#9BF6FF</item>-->
+<!--        <item>#A0C4FF</item>-->
+<!--        <item>#BDB2FF</item>-->
+<!--        <item>#FFC6FF</item>-->
+<!--        <item>#FFFFFC</item>-->
+<!--    </array>-->
 
 </resources>

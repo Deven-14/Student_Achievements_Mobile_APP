@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".Student.StudentSignUp"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="@color/off_white">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -18,7 +19,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_launcher_background"
+            tools:srcCompat="@tools:sample/avatars"
             android:id="@+id/image"/>
 
     </androidx.cardview.widget.CardView>
@@ -28,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Name"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_marginTop="20dp"/>
@@ -38,6 +40,7 @@
         android:layout_height="wrap_content"
         android:textStyle="italic"
         android:hint="Email"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:layout_marginTop="20dp"/>
 
@@ -48,6 +51,8 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="USN"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:inputType="textPersonName|textCapCharacters"
         android:minHeight="48dp"
         android:textAllCaps="true" />
@@ -59,6 +64,8 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="PHONE"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:inputType="phone"
         android:minHeight="48dp"
         android:textAllCaps="true" />
@@ -69,7 +76,7 @@
         android:text="Submit"
         android:id="@+id/student_sign_up_btn"
         android:layout_marginTop="40dp"
-        android:backgroundTint="@color/royal_blue"/>
+        android:backgroundTint="@color/submit_green"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -78,7 +85,6 @@
         android:textAllCaps="false"
         android:layout_marginTop="10dp"
         android:id="@+id/old_account_btn"
-        android:textColor="@color/royal_blue"
-        android:backgroundTint="@android:color/transparent" />
+        android:backgroundTint="@color/pastel_red"/>
 
 </LinearLayout>

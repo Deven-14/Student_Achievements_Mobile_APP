@@ -1,6 +1,7 @@
 package com.bmsce.studentachievements.Student;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -9,10 +10,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bmsce.studentachievements.R;
+import com.bmsce.studentachievements.SharedPreferences.SharedPreferenceManager;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,11 +38,13 @@ public class StudentSignUp extends AppCompatActivity implements View.OnClickList
     private EditText usn, phone;
     private Button studentSignUpBtn, oldAccountBtn;
     private GoogleSignInAccount account;
-    private static String TAG = StudentSignUp.class.toString();
+    private static String TAG = StudentSignUp.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.arsenic)));
+        getSupportActionBar().setTitle("Student SignUp");
         setContentView(R.layout.activity_student_sign_up);
 
         account = getIntent().getParcelableExtra("gAccount");
@@ -103,9 +108,14 @@ public class StudentSignUp extends AppCompatActivity implements View.OnClickList
             body.put("name", account.getDisplayName());
             body.put("email", account.getEmail());
             body.put("usn", usn.getText().toString());
-            body.put("phone", usn.getText().toString());
+            body.put("phone", phone.getText().toString());
+//            body.put("name", "Deven18");
+//            body.put("email", "devenparamaj18.is19@bmsce.ac.in");
+//            body.put("usn", "1BM19IS048");
+//            body.put("phone", "0123456789");
         } catch (JSONException | NullPointerException e) {
             e.printStackTrace();
+            return null;
         }
         return body;
     }
@@ -113,14 +123,20 @@ public class StudentSignUp extends AppCompatActivity implements View.OnClickList
     private Response.Listener<JSONObject> onSuccess = new Response.Listener<JSONObject>() {
         @Override
         public void onResponse(JSONObject response) {
-//            Log.i("response", response.toString());
             try {
+                Log.i(TAG, response.getJSONObject("userData").toString());
                 Student.addDataToPreferences(getApplicationContext(), account, response.getJSONObject("userData"));
                 Intent intent = new Intent(StudentSignUp.this, ViewAchievements.class);
+                intent.setFlags(
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        | Intent.FLAG_ACTIVITY_NEW_TASK
+                );
+                SharedPreferenceManager.writeIsSignedInTrue(getApplicationContext());
                 startActivity(intent);
             } catch (GeneralSecurityException | IOException | JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(StudentSignUp.this, "Something Went Wrong!, SignUp Again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentSignUp.this, "Something Went Wrong!, LOGIN", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -130,6 +146,7 @@ public class StudentSignUp extends AppCompatActivity implements View.OnClickList
         @Override
         public void onErrorResponse(VolleyError error) {
             Toast.makeText(StudentSignUp.this, "Something Went Wrong!, SignUp Again", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, error.toString());
             finish();
         }
     };

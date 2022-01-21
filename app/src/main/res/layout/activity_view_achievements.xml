@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Student.ViewAchievements">
+    tools:context=".Student.ViewAchievements"
+    android:background="@color/off_white">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
@@ -16,13 +17,14 @@
         android:id="@+id/addAchievementBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/royal_blue" />
+        android:backgroundTint="@color/off_white"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/ic_baseline_add_24"/>
 
 
 </RelativeLayout>

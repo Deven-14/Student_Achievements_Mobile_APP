@@ -5,16 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Admin.StudentAchievements"
-    android:padding="30dp">
-    
+    android:padding="30dp"
+    android:background="@color/off_white">
+
     <TextView
+        android:id="@+id/chooseDepartmentsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose the departments"
-        android:id="@+id/chooseDepartmentsTextView"
-        android:textSize="25sp"
         android:layout_marginTop="10dp"
-        android:textStyle="italic"/>
+        android:text="Choose the departments"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/departmentsTextView"
@@ -35,6 +37,7 @@
         android:layout_below="@id/departmentsTextView"
         android:layout_marginTop="30dp"
         android:text="Choose the batches"
+        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="italic" />
     
@@ -51,14 +54,15 @@
         android:layout_marginTop="10dp"/>
 
     <TextView
+        android:id="@+id/fromAcademicYearTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="From Academic Year"
-        android:id="@+id/fromAcademicYearTextView"
-        android:textSize="25sp"
-        android:layout_marginTop="30dp"
         android:layout_below="@id/batchesTextView"
-        android:textStyle="italic"/>
+        android:layout_marginTop="30dp"
+        android:text="From Academic Year"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="italic" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -79,14 +83,15 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/toAcademicYearTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To Academic Year"
-        android:id="@+id/toAcademicYearTextView"
-        android:textSize="25sp"
-        android:layout_marginTop="20dp"
         android:layout_below="@id/fromAcademicYearCardView"
-        android:textStyle="italic"/>
+        android:layout_marginTop="20dp"
+        android:text="To Academic Year"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="italic" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -108,13 +113,16 @@
 
     <Button
         android:id="@+id/viewStudentAchievementsBtn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toAcademicYearCardView"
         android:layout_marginTop="40dp"
-        android:text="View Achievements" />
+        android:text="View Achievements"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/submit_green"/>
 
     <Button
+        android:id="@+id/createBatchBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -122,7 +130,7 @@
         android:drawableLeft="@drawable/ic_baseline_add_24"
         android:text="Add Batch"
         android:textAllCaps="false"
-        android:id="@+id/createBatchBtn"/>
+        android:backgroundTint="@color/pastel_red"/>
 
 
 </RelativeLayout>

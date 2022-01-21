@@ -4,39 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/winner_background">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_alignStart="@id/studentAchievementText"
-        android:layout_above="@id/studentAchievementText"
+        android:id="@+id/collegeLogo"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@drawable/college_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:contentDescription="@string/bmsce_logo" />
 
     <TextView
         android:id="@+id/studentAchievementText"
-        android:layout_width="wrap_content"
+        android:layout_width="364dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/app_display_name"
-        android:textSize="34sp"
+        android:layout_below="@id/collegeLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="serif"
+        android:text="Student Achievements BMSCE"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="28sp"
         android:textStyle="bold|italic" />
 
     <com.google.android.gms.common.SignInButton
+        android:layout_below="@id/studentAchievementText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:layout_centerInParent="true"
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/studentAchievementText"
-        android:layout_alignStart="@id/studentAchievementText"/>
+        android:visibility="visible"/>
 
     <Button
+        android:layout_below="@id/studentAchievementText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sign_out_button"
         android:text="@string/sign_out"
-        android:layout_below="@id/sign_in_button"
-        android:layout_alignStart="@id/studentAchievementText"/>
+        android:visibility="gone"/>
 
 </RelativeLayout>
