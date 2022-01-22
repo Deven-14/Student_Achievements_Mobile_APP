@@ -116,10 +116,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toAcademicYearCardView"
-        android:layout_marginTop="40dp"
-        android:text="View Achievements"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/submit_green"/>
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/submit_green"
+        android:text="Download Achievements" />
 
     <Button
         android:id="@+id/createBatchBtn"

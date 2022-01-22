@@ -32,16 +32,4 @@
         <item>@color/sea_green</item>
     </array>
 
-<!--    <array name="event_colors">-->
-<!--        <item>#FFADAD</item>-->
-<!--        <item>#FFD6A5</item>-->
-<!--        <item>#FDFFB6</item>-->
-<!--        <item>#CAFFBF</item>-->
-<!--        <item>#9BF6FF</item>-->
-<!--        <item>#A0C4FF</item>-->
-<!--        <item>#BDB2FF</item>-->
-<!--        <item>#FFC6FF</item>-->
-<!--        <item>#FFFFFC</item>-->
-<!--    </array>-->
-
 </resources>

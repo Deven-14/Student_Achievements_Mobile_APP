@@ -9,6 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -20,9 +21,11 @@ import com.bmsce.studentachievements.Student.StudentSignIn;
 import com.bmsce.studentachievements.Student.ViewAchievements;
 import com.bmsce.studentachievements.Token.AccessToken;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +42,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -221,33 +226,8 @@ public class StudentAchievements extends AppCompatActivity implements View.OnCli
 
         if(isAllDataEntered(token)) {
 
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Admin.getStudentAchievementsUri(), null, onSuccess, onFailure) {
-
-                @Override
-                public Map<String, String> getHeaders() {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("x-access-token", token);
-                    return headers;
-                }
-
-                @Override
-                public String getUrl() {
-                    StringBuilder stringBuilder = new StringBuilder(Admin.getStudentAchievementsUri());
-
-                    stringBuilder.append("?from_year=").append(fromAcademicYearSpinner.getSelectedItem().toString());
-                    stringBuilder.append("&to_year=").append(toAcademicYearSpinner.getSelectedItem().toString());
-                    for(int i = 0; i < selectedDepartments.size(); ++i) {
-                        stringBuilder.append("&selected_departments=").append(selectedDepartments.get(i));
-                    }
-                    for(int i = 0; i < selectedBatches.size(); ++i) {
-                        stringBuilder.append("&selected_batches=").append(selectedBatches.get(i));
-                    }
-
-                    return stringBuilder.toString();
-                }
-            };
-
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, getUrl(), onSuccess, onFailure, getHeaders(token));
+            RequestQueue requestQueue = Volley.newRequestQueue(this, new HurlStack());
             requestQueue.add(request);
 
         } else {
@@ -255,19 +235,71 @@ public class StudentAchievements extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private final Response.Listener<JSONObject> onSuccess = new Response.Listener<JSONObject>() {
+    private final Response.Listener<byte[]> onSuccess = new Response.Listener<byte[]>() {
         @Override
-        public void onResponse(JSONObject response) {
-            Toast.makeText(StudentAchievements.this, response.toString(), Toast.LENGTH_LONG).show();
-            Log.i("response", response.toString());
+        public void onResponse(byte[] response) {
+            try {
+                if (response!=null) {
+                    File newFile = null;
+                    if (isExternalStorageWritable() && isExternalStorageReadable()) {
+                        String downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+                        newFile = new File(downloadsDir, "studentAchievements_" + Calendar.getInstance().getTimeInMillis() + ".xlsx");
+                    }
+                    FileOutputStream outputStream;
+//                    String name="1234.xlsx";
+//                    outputStream = openFileOutput(name, Context.MODE_PRIVATE);
+                    outputStream = new FileOutputStream(newFile);
+                    outputStream.write(response);
+                    outputStream.close();
+                    Toast.makeText(StudentAchievements.this, "Download complete.", Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                Toast.makeText(StudentAchievements.this, "File not created", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
         }
     };
 
     private final Response.ErrorListener onFailure = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Toast.makeText(StudentAchievements.this, "Error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(StudentAchievements.this, "Download Failed", Toast.LENGTH_SHORT).show();
+            error.printStackTrace();
         }
     };
+
+    private HashMap<String, String> getHeaders(String token) {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("x-access-token", token);
+        return headers;
+    }
+
+    private String getUrl() {
+        StringBuilder stringBuilder = new StringBuilder(Admin.getStudentAchievementsUri());
+
+        stringBuilder.append("?from_year=").append(fromAcademicYearSpinner.getSelectedItem().toString());
+        stringBuilder.append("&to_year=").append(toAcademicYearSpinner.getSelectedItem().toString());
+        for(int i = 0; i < selectedDepartments.size(); ++i) {
+            stringBuilder.append("&selected_departments=").append(selectedDepartments.get(i));
+        }
+        for(int i = 0; i < selectedBatches.size(); ++i) {
+            stringBuilder.append("&selected_batches=").append(selectedBatches.get(i));
+        }
+
+        return stringBuilder.toString();
+    }
+
+    /* Checks if external storage is available for read and write */
+    private boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
+    }
+
+    /* Checks if external storage is available to at least read */
+    private boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
+    }
 }
 

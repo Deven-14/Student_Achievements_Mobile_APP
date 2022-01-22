@@ -58,18 +58,6 @@ public class AchievementsRecViewAdapter extends RecyclerView.Adapter<Achievement
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     context.startActivity(intent);
                 }
-//                PopupMenu popup = new PopupMenu(context, holder.certificate);
-//                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-//
-//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        Toast.makeText(context,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-//                        //Your Code to download the google sheet
-//                        return true;
-//                    }
-//                });
-//
-//                popup.show();
             }
         });
         int randIndex = rand.nextInt(event_colors.length);
@@ -80,11 +68,6 @@ public class AchievementsRecViewAdapter extends RecyclerView.Adapter<Achievement
     public int getItemCount() {
         return achievements.size();
     }
-
-//    public void setAchievements(ArrayList<Achievement> achievements) {
-//        this.achievements = achievements;
-//        notifyDataSetChanged();
-//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

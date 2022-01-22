@@ -56,7 +56,9 @@ public class StudentSignUp extends AppCompatActivity implements View.OnClickList
         studentSignUpBtn = findViewById(R.id.student_sign_up_btn);
         oldAccountBtn = findViewById(R.id.old_account_btn);
 
-        Glide.with(this).load(account.getPhotoUrl()).into(image);
+        if(account.getPhotoUrl() != null) {
+            Glide.with(this).load(account.getPhotoUrl()).into(image);
+        }
         name.setText(account.getDisplayName());
         email.setText(account.getEmail());
 

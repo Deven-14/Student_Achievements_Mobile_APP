@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StudentAchievements</string>
+    <string name="app_name">Achievements</string>
     <string name="app_display_name">Student\nAchievements\nBMSCE</string>
     <string name="sign_out">Sign Out</string>
     <string name="bmsce_logo">BMSCE Logo</string>
